@@ -26,7 +26,7 @@ const player = (boardSize = 10) => {
       return gameboard.recieveAttack(x,y) == 1 ? false : true
     }
 
-    return {initShip,attack}
+    return {initShip,attack,sunkShips}
   }
 
 export default player
