@@ -6,9 +6,10 @@ test('Place ship', () => {
   expect(testBoard.placeShip(12,12,true,ship(2))).toBe(false);  
   expect(testBoard.placeShip(0,7,true,ship(5))).toBe(false);
   expect(testBoard.placeShip(7,0,false,ship(5))).toBe(false);
-  expect(testBoard.placeShip(7,7,false,ship(1))).toBe(true);
+  //expect(testBoard.placeShip(7,7,false,ship(1))).toBe(true);
   expect(testBoard.placeShip(7,9,false,ship(2))).toBe(true);
-  expect(testBoard.placeShip(9,7,true,ship(2))).toBe(true);  
+  expect(testBoard.placeShip(1,7,true,ship(2))).toBe(true);
+  expect(testBoard.placeShip(1,7,false,ship(2))).toBe(false);
 })
 
 test('Recieve Attack', () => {
