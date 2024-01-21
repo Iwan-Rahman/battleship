@@ -1,3 +1,16 @@
-.hello {
-  color: red;
+h1, h2 {
+  text-align: center;
+}
+.main {
+  display: flex;
+  justify-content: center;
+  gap: 15rem;
+}
+.board {
+  display: flex;
+}
+.board > div > div {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid grey;
 }

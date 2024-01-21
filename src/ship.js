@@ -4,7 +4,9 @@ const ship = (length) => {
 
   const hit = () => ++hits;
   const isSunk = () => sunk = hits == length ? true : false;
-  return {length,hit,isSunk}
+
+  const toString = () => "S";
+  return {length,hit,isSunk,toString}
 };
 
 export default ship;

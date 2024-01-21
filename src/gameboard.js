@@ -13,7 +13,7 @@ const gameboard = (size) => {
 
   const placeShip = (x,y,isVert,newShip) => {
     //check if out of bounds
-    if(((isVert && y + newShip.length <=9) || (!isVert && x + newShip.length <= 9)) && board[x][y] == null){
+    if(((isVert && y + newShip.length <= 10) || (!isVert && x + newShip.length <= 10)) && board[x][y] == null){
       for(let i = 0; i < newShip.length; i++){
         board[x + i*(!isVert)][y + i*(isVert)] = newShip;
       }
@@ -25,15 +25,14 @@ const gameboard = (size) => {
   }
   
   //null => hidden, 0 => miss, 1 => hit
-  const receiveAttack = (x,y) => {
-   
+  const receiveAttack = (x,y,enemyBoard) => {
    //check for ship at x,y
-   if(board[x][y] != null){
-      board[x][y].hit();
-      board[x][y] = 1;
+   if(enemyBoard[x][y] != null){
+      enemyBoard[x][y].hit();
+      enemyBoard[x][y] = 1;
       return 1;
     }
-    board[x][y] = 0;
+    enemyBoard[x][y] = 0;
     return 0;
   }
 

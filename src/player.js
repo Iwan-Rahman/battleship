@@ -9,6 +9,7 @@ const player = (boardSize = 10) => {
 
     //return false if the player can place another ship, true otherwise
     const initShip = (x,y,isVert,indexOfSunkShip) => {
+      if(sunkShips.length == 0){return true}
       if(board.placeShip(x,y,isVert,sunkShips[indexOfSunkShip])){
         currentShips.push(sunkShips[indexOfSunkShip]);
         sunkShips.splice(indexOfSunkShip,1);
@@ -26,7 +27,7 @@ const player = (boardSize = 10) => {
       return gameboard.recieveAttack(x,y) == 1 ? false : true
     }
 
-    return {initShip,attack,sunkShips}
+    return {board, initShip,attack,sunkShips}
   }
 
 export default player
