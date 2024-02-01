@@ -24,7 +24,7 @@ const player = (boardSize = 10) => {
       //attack cannot be in already selected coordinate
       if(attacks.some(coord => coord[0] == x && coord[1] == y)){return false}
       attacks.push([x,y]);
-      return gameboard.recieveAttack(x,y) == 1 ? false : true
+      return gameboard.receiveAttack(x,y) == 1 ? false : true
     }
 
     return {board, initShip,attack,sunkShips}

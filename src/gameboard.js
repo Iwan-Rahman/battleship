@@ -25,17 +25,16 @@ const gameboard = (size) => {
   }
   
   //null => hidden, 0 => miss, 1 => hit
-  const receiveAttack = (x,y,enemyBoard) => {
+  const receiveAttack = (x,y) => {
    //check for ship at x,y
-   if(enemyBoard[x][y] != null){
-      enemyBoard[x][y].hit();
-      enemyBoard[x][y] = 1;
+   if(board[x][y] != null){
+      board[x][y].hit();
+      board[x][y] = 1;
       return 1;
     }
-    enemyBoard[x][y] = 0;
+    board[x][y] = 0;
     return 0;
   }
-
   //let ships = [];
   return {board,placeShip,receiveAttack}
 };
