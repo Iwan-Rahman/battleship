@@ -29,8 +29,9 @@ const gameboard = (size) => {
    //check for ship at x,y
    if(board[x][y] != null){
       board[x][y].hit();
+      let ship = board[x][y];
       board[x][y] = 1;
-      return 1;
+      return ship;
     }
     board[x][y] = 0;
     return 0;

@@ -20,11 +20,20 @@ const player = (boardSize = 10) => {
     }
 
     //Returns false if the player can make another attack, true otherwise
-    const attack = (gameboard, x,y) => {
+    const attack = (player, x,y) => {
       //attack cannot be in already selected coordinate
       if(attacks.some(coord => coord[0] == x && coord[1] == y)){return false}
       attacks.push([x,y]);
-      return gameboard.receiveAttack(x,y) == 1 ? false : true
+      let hit = player.board.receiveAttack(x,y) 
+      if(hit != 0){
+        if(hit.isSunk()){
+          player.sunkShips.push(hit);
+          console.log("SUNK!")
+          console.log(player.sunkShips);
+          return player.sunkShips.length < 5 ? false : true;
+        };
+      }
+      return hit != 0 ? false : true;
     }
 
     return {board, initShip,attack,sunkShips}

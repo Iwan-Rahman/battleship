@@ -50,11 +50,17 @@ let aiPlaceShips = () => {
 }
 
 let attackBoard = (e) => {
-  console.log("TEST");
   let [x,y] = getDOMCoords(e);
-  let endPhase = playerOne.attack(playerTwo.board,x,y);
+  let endPhase = playerOne.attack(playerTwo,x,y);
   if(endPhase == true){
-    aiAttack();
+    if(playerTwo.sunkShips.length == 5){
+      alert("You win!");
+    }else{
+      aiAttack();
+      if(playerOne.sunkShips.length == 5){
+        alert("You lose :(");
+      }
+    }
     updatePlayerDisp(playerOne.board.board,boards[0]);
     updatePlayerDisp(playerTwo.board.board,boards[1]);
   }
@@ -64,7 +70,7 @@ let aiAttack = () => {
   let endPhase = false;
   while(!endPhase){
     let [x,y] = [Math.floor(Math.random()*9),Math.floor(Math.random()*9)];
-    endPhase = playerTwo.attack(playerOne.board,x,y);
+    endPhase = playerTwo.attack(playerOne,x,y);
   }
 }
 
