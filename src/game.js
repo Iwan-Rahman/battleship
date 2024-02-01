@@ -15,11 +15,33 @@ let getDOMCoords = (e) => {
   return [x,y];
 }
 
+
+let gameLoop = (e, phase, activePlayer) => {
+}
+
 //Place ships
+//Once all ships are placed, the AI will place ships
 let placeShips = (e) => {
   let [x,y] = getDOMCoords(e);
-  playerOne.initShip(x,y,false,0);
+  let endPhase = playerOne.initShip(x,y,false,0);
   updatePlayerDisp(playerOne.board.board,boards[0]);
+  if(endPhase == true){
+    e.target.parentNode.parentNode.childNodes.forEach(col => {
+      col.childNodes.forEach(cell => {
+        cell.removeEventListener('click',placeShips);
+      })      
+    });
+    aiPlaceShips();
+    updatePlayerDisp(playerTwo.board.board,boards[1]);
+  }
+}
+
+let aiPlaceShips = () => {
+  let endPhase = false;
+  while(!endPhase){
+    let [x,y] = [Math.floor(Math.random()*9),Math.floor(Math.random()*9)];
+    endPhase = playerTwo.initShip(x,y,false,0);
+  }
 }
 
 //Requires 2D nodelist of the boardDOM
