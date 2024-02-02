@@ -1,10 +1,23 @@
 import './style.css';
 import player from './player';
 
-//Global Variables
+//Players
 let playerOne = player();
-let playerTwo = player();
+let playerTwo = player(); //Computer
 let activePlayer = playerOne;
+
+
+let vertical = false; //Used to toggle between horizontal and vertical ship placement
+let toggleVertical = () => {
+  vertical = vertical == true ? false : true;
+}
+
+document.querySelector(".board").addEventListener("contextmenu",(e) => {
+  toggleVertical();
+  e.preventDefault();
+})
+
+
 //Gets x and y selected on grid
 let getDOMCoords = (e) => {
   let node = e.target;
@@ -15,15 +28,11 @@ let getDOMCoords = (e) => {
   return [x,y];
 }
 
-
-let gameLoop = (e, phase, activePlayer) => {
-}
-
 //Place ships
 //Once all ships are placed, the AI will place ships
 let placeShips = (e) => {
   let [x,y] = getDOMCoords(e);
-  let endPhase = playerOne.initShip(x,y,false,0);
+  let endPhase = playerOne.initShip(x,y,vertical,0);
   updatePlayerDisp(playerOne.board.board,boards[0]);
   document.querySelector(".msg p").textContent = "Ships Left: " + playerOne.sunkShips.length;
   if(endPhase == true){
@@ -48,7 +57,8 @@ let aiPlaceShips = () => {
   let endPhase = false;
   while(!endPhase){
     let [x,y] = [Math.floor(Math.random()*9),Math.floor(Math.random()*9)];
-    endPhase = playerTwo.initShip(x,y,false,0);
+    let vertical = Math.floor(Math.random()*2) == 0 ? false : true;
+    endPhase = playerTwo.initShip(x,y,vertical,0);
   }
 }
 
@@ -119,7 +129,7 @@ function updateCompDisp(board,boardWrapper){
   for(let i = 0; i < 10; i++){
     for(let j = 0; j < 10; j++){
       boardDOM[i][j].textContent = board[i][j] == null ? null : board[i][j].toString();
-      if(boardDOM[i][j].textContent == 'S'){boardDOM[i][j].textContent = null};
+//      if(boardDOM[i][j].textContent == 'S'){boardDOM[i][j].textContent = 'S'};
       switch(boardDOM[i][j].textContent){
         case('0'):
         boardDOM[i][j].style.backgroundColor = 'dimgrey';
@@ -128,7 +138,7 @@ function updateCompDisp(board,boardWrapper){
         boardDOM[i][j].style.backgroundColor = 'maroon';
         break;
       };
-      boardDOM[i][j].textContent = null;
+//      boardDOM[i][j].textContent = null;
     }
   }
 }

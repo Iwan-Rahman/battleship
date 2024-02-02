@@ -15,9 +15,11 @@ const gameboard = (size) => {
     //check if out of bounds
     if(((isVert && y + newShip.length <= 10) || (!isVert && x + newShip.length <= 10)) && board[x][y] == null){
       for(let i = 0; i < newShip.length; i++){
+        if(board[x + i*(!isVert)][y + i*(isVert)] != null){return false};
+      }
+      for(let i = 0; i < newShip.length; i++){
         board[x + i*(!isVert)][y + i*(isVert)] = newShip;
       }
-      //ships.push(newShip);
       return true
     }else{
       return false;
