@@ -39,7 +39,7 @@ let placeShips = (e) => {
       })
     })
     document.querySelector(".msg h2").textContent = "Attack Ships";
-    document.querySelector(".msg p").textContent = "Ships Left: " + (5 - playerOne.sunkShips.length);
+    document.querySelector(".msg p").textContent = "Ships Left: " + (5 - playerTwo.sunkShips.length);
     updateCompDisp(playerTwo.board.board,boards[1]);
   }
 }
@@ -76,7 +76,7 @@ let attackBoard = (e) => {
       }
     }
   }
-  document.querySelector(".msg p").textContent = "Ships Left: " + (5 - playerOne.sunkShips.length);
+  document.querySelector(".msg p").textContent = "Ships Left: " + (5 - playerTwo.sunkShips.length);
   updatePlayerDisp(playerOne.board.board,boards[0]);
   updateCompDisp(playerTwo.board.board,boards[1]);
 }
