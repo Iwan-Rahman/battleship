@@ -37,7 +37,7 @@ let placeShips = (e) => {
         cell.addEventListener('click',attackBoard);
       })
     })
-    updatePlayerDisp(playerTwo.board.board,boards[1]);
+    updateCompDisp(playerTwo.board.board,boards[1]);
   }
 }
 
@@ -74,7 +74,7 @@ let attackBoard = (e) => {
     }
   }
   updatePlayerDisp(playerOne.board.board,boards[0]);
-  updatePlayerDisp(playerTwo.board.board,boards[1]);
+  updateCompDisp(playerTwo.board.board,boards[1]);
 }
 
 let aiAttack = () => {
@@ -93,6 +93,17 @@ function updatePlayerDisp(board,boardWrapper){
   for(let i = 0; i < 10; i++){
     for(let j = 0; j < 10; j++){
       boardDOM[i][j].textContent = board[i][j] == null ? null : board[i][j].toString();
+    }
+  }
+}
+
+function updateCompDisp(board,boardWrapper){
+  let boardDOM = [...boardWrapper.childNodes];
+  boardDOM = boardDOM.map(e => e.childNodes);
+  for(let i = 0; i < 10; i++){
+    for(let j = 0; j < 10; j++){
+      boardDOM[i][j].textContent = board[i][j] == null ? null : board[i][j].toString();
+      if(boardDOM[i][j].textContent == 'S'){boardDOM[i][j].textContent = null};
     }
   }
 }
