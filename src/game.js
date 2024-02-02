@@ -97,6 +97,18 @@ function updatePlayerDisp(board,boardWrapper){
   for(let i = 0; i < 10; i++){
     for(let j = 0; j < 10; j++){
       boardDOM[i][j].textContent = board[i][j] == null ? null : board[i][j].toString();
+      switch(boardDOM[i][j].textContent){
+        case('S'):
+        boardDOM[i][j].style.backgroundColor = 'darkseagreen';
+        break;
+        case('0'):
+        boardDOM[i][j].style.backgroundColor = 'dimgrey';
+        break;
+        case('1'):
+        boardDOM[i][j].style.backgroundColor = 'maroon';
+        break;
+      };
+      boardDOM[i][j].textContent = null;
     }
   }
 }
@@ -108,6 +120,15 @@ function updateCompDisp(board,boardWrapper){
     for(let j = 0; j < 10; j++){
       boardDOM[i][j].textContent = board[i][j] == null ? null : board[i][j].toString();
       if(boardDOM[i][j].textContent == 'S'){boardDOM[i][j].textContent = null};
+      switch(boardDOM[i][j].textContent){
+        case('0'):
+        boardDOM[i][j].style.backgroundColor = 'dimgrey';
+        break;
+        case('1'):
+        boardDOM[i][j].style.backgroundColor = 'maroon';
+        break;
+      };
+      boardDOM[i][j].textContent = null;
     }
   }
 }
