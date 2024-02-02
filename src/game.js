@@ -25,6 +25,7 @@ let placeShips = (e) => {
   let [x,y] = getDOMCoords(e);
   let endPhase = playerOne.initShip(x,y,false,0);
   updatePlayerDisp(playerOne.board.board,boards[0]);
+  document.querySelector(".msg p").textContent = "Ships Left: " + playerOne.sunkShips.length;
   if(endPhase == true){
     e.target.parentNode.parentNode.childNodes.forEach(col => {
       col.childNodes.forEach(cell => {
@@ -37,6 +38,8 @@ let placeShips = (e) => {
         cell.addEventListener('click',attackBoard);
       })
     })
+    document.querySelector(".msg h2").textContent = "Attack Ships";
+    document.querySelector(".msg p").textContent = "Ships Left: " + (5 - playerOne.sunkShips.length);
     updateCompDisp(playerTwo.board.board,boards[1]);
   }
 }
@@ -55,7 +58,7 @@ let attackBoard = (e) => {
   let endPhase = playerOne.attack(playerTwo,x,y);
   if(endPhase == true){
     if(playerTwo.sunkShips.length == 5){
-      alert("You win!");
+      document.querySelector(".msg h2").textContent = "Player wins!";
       e.target.parentNode.parentNode.childNodes.forEach(col => {
         col.childNodes.forEach(cell => {
           cell.removeEventListener('click',attackBoard);
@@ -64,7 +67,7 @@ let attackBoard = (e) => {
     }else{
       aiAttack();
       if(playerOne.sunkShips.length == 5){
-        alert("You lose :(");
+        document.querySelector(".msg h2").textContent = "Computer wins!";
         e.target.parentNode.parentNode.childNodes.forEach(col => {
           col.childNodes.forEach(cell => {
             cell.removeEventListener('click',attackBoard);
@@ -73,6 +76,7 @@ let attackBoard = (e) => {
       }
     }
   }
+  document.querySelector(".msg p").textContent = "Ships Left: " + (5 - playerOne.sunkShips.length);
   updatePlayerDisp(playerOne.board.board,boards[0]);
   updateCompDisp(playerTwo.board.board,boards[1]);
 }

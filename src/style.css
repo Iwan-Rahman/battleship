@@ -14,3 +14,11 @@ h1, h2 {
   height: 2rem;
   border: 1px solid grey;
 }
+
+.msg p {
+  text-align: center;
+}
+
+.board {
+  text-align: center;
+}
