@@ -49,21 +49,32 @@ let aiPlaceShips = () => {
   }
 }
 
+
 let attackBoard = (e) => {
   let [x,y] = getDOMCoords(e);
   let endPhase = playerOne.attack(playerTwo,x,y);
   if(endPhase == true){
     if(playerTwo.sunkShips.length == 5){
       alert("You win!");
+      e.target.parentNode.parentNode.childNodes.forEach(col => {
+        col.childNodes.forEach(cell => {
+          cell.removeEventListener('click',attackBoard);
+        })      
+      });
     }else{
       aiAttack();
       if(playerOne.sunkShips.length == 5){
         alert("You lose :(");
+        e.target.parentNode.parentNode.childNodes.forEach(col => {
+          col.childNodes.forEach(cell => {
+            cell.removeEventListener('click',attackBoard);
+          })      
+        });
       }
     }
-    updatePlayerDisp(playerOne.board.board,boards[0]);
-    updatePlayerDisp(playerTwo.board.board,boards[1]);
   }
+  updatePlayerDisp(playerOne.board.board,boards[0]);
+  updatePlayerDisp(playerTwo.board.board,boards[1]);
 }
 
 let aiAttack = () => {
