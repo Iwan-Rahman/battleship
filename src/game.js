@@ -15,6 +15,8 @@ let toggleVertical = () => {
 
 document.querySelector(".board").addEventListener("contextmenu",(e) => {
   toggleVertical();
+  updatePlayerDisp(playerOne.board.board,boards[0]);
+  showPlacement(e);
   e.preventDefault();
 })
 
