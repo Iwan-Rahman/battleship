@@ -101,7 +101,7 @@ let aiAttack = () => {
   }
 }
 function showPlacement(e){
-  updatePlayerDisp(playerOne.board.board,boards[0]);
+  
   let isVert = vertical;
   let shipLength = activePlayer.sunkShips[0].length
   let [x,y] = getDOMCoords(e);
@@ -127,6 +127,7 @@ function showPlacement(e){
 
       }
     }
+    e.target.addEventListener("mouseleave",() => {updatePlayerDisp(playerOne.board.board,boards[0]);})
 }
 //Requires 2D nodelist of the boardDOM
 //Update Display
