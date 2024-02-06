@@ -1,5 +1,6 @@
 import './style.css';
 import player from './player';
+import ship from './ship';
 
 //Players
 let playerOne = player();
@@ -39,6 +40,7 @@ let placeShips = (e) => {
     e.target.parentNode.parentNode.childNodes.forEach(col => {
       col.childNodes.forEach(cell => {
         cell.removeEventListener('click',placeShips);
+        cell.removeEventListener('mouseenter',showPlacement);
       })      
     });
     aiPlaceShips();
@@ -98,7 +100,34 @@ let aiAttack = () => {
     endPhase = playerTwo.attack(playerOne,x,y);
   }
 }
+function showPlacement(e){
+  updatePlayerDisp(playerOne.board.board,boards[0]);
+  let isVert = vertical;
+  let shipLength = activePlayer.sunkShips[0].length
+  let [x,y] = getDOMCoords(e);
+  let board = e.target.parentNode.parentNode;
+  console.log(x+shipLength);
+    if(x + shipLength >= 11 && vertical == false){
+      for(let i = 0; i <= 9-x; i++){
+        board.childNodes[x + i*(!isVert)].childNodes[y + i*(isVert)].style.backgroundColor = "red";
+      }
+    }else if(y + shipLength >= 11 && vertical == true){
+      for(let i = 0; i <= 9-y; i++){
+        board.childNodes[x + i*(!isVert)].childNodes[y + i*(isVert)].style.backgroundColor = "red";
+      }
+    }
+    else{
+      for(let i = 0; i < shipLength; i++){
+        console.log(board.childNodes[x + i*(!isVert)].childNodes[y + i*(isVert)].style.backgroundColor)
+        if(board.childNodes[x + i*(!isVert)].childNodes[y + i*(isVert)].style.backgroundColor == "inherit"){
+          board.childNodes[x + i*(!isVert)].childNodes[y + i*(isVert)].style.backgroundColor = "aquamarine";
+        }else{
+          board.childNodes[x + i*(!isVert)].childNodes[y + i*(isVert)].style.backgroundColor = "red";
+        }
 
+      }
+    }
+}
 //Requires 2D nodelist of the boardDOM
 //Update Display
 function updatePlayerDisp(board,boardWrapper){
@@ -117,6 +146,8 @@ function updatePlayerDisp(board,boardWrapper){
         case('1'):
         boardDOM[i][j].style.backgroundColor = 'maroon';
         break;
+        default:
+          boardDOM[i][j].style.backgroundColor = 'inherit';
       };
       boardDOM[i][j].textContent = null;
     }
@@ -129,7 +160,6 @@ function updateCompDisp(board,boardWrapper){
   for(let i = 0; i < 10; i++){
     for(let j = 0; j < 10; j++){
       boardDOM[i][j].textContent = board[i][j] == null ? null : board[i][j].toString();
-//      if(boardDOM[i][j].textContent == 'S'){boardDOM[i][j].textContent = 'S'};
       switch(boardDOM[i][j].textContent){
         case('0'):
         boardDOM[i][j].style.backgroundColor = 'dimgrey';
@@ -138,7 +168,7 @@ function updateCompDisp(board,boardWrapper){
         boardDOM[i][j].style.backgroundColor = 'maroon';
         break;
       };
-//      boardDOM[i][j].textContent = null;
+     boardDOM[i][j].textContent = null;
     }
   }
 }
@@ -153,6 +183,7 @@ for(let i=0; i < 10; i++){
   for(let j=0; j<10; j++){
     let cellB1 = document.createElement('div');
     cellB1.addEventListener('click',placeShips);
+    cellB1.addEventListener('mouseenter',showPlacement);
     let cellB2 = document.createElement('div');
     rowB1.append(cellB1);
     rowB2.append(cellB2);
