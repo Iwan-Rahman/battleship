@@ -43,6 +43,7 @@ let placeShips = (e) => {
       col.childNodes.forEach(cell => {
         cell.removeEventListener('click',placeShips);
         cell.removeEventListener('mouseenter',showPlacement);
+        cell.removeEventListener('wheel',scrollShip);
       })      
     });
     aiPlaceShips();
@@ -176,8 +177,20 @@ function updateCompDisp(board,boardWrapper){
   }
 }
 
+
 //Create Gameboard Displays
 let boards = document.querySelectorAll(".board")
+function scrollShip (e){
+  if(e.deltaY < -10){
+    activePlayer.switchShip(true);
+    updatePlayerDisp(playerOne.board.board,boards[0]);
+    showPlacement(e);
+  }else if(e.deltaY > 10){
+    activePlayer.switchShip(false);
+    updatePlayerDisp(playerOne.board.board,boards[0]);
+    showPlacement(e);
+  }
+}
 for(let i=0; i < 10; i++){
   let rowB1 = document.createElement('div');
   let rowB2 = document.createElement('div');
@@ -187,6 +200,7 @@ for(let i=0; i < 10; i++){
     let cellB1 = document.createElement('div');
     cellB1.addEventListener('click',placeShips);
     cellB1.addEventListener('mouseenter',showPlacement);
+    cellB1.addEventListener('wheel',scrollShip);
     let cellB2 = document.createElement('div');
     rowB1.append(cellB1);
     rowB2.append(cellB2);

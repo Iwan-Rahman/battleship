@@ -36,7 +36,17 @@ const player = (boardSize = 10) => {
       return hit != 0 ? false : true;
     }
 
-    return {board, initShip,attack,sunkShips}
+    
+    const switchShip = (fwdDirection) => {
+      if(sunkShips.length != 0 && !fwdDirection){
+        sunkShips.unshift(sunkShips[sunkShips.length - 1]);
+        sunkShips.pop();
+      }else{
+        sunkShips.push(sunkShips[0]);
+        sunkShips.shift();
+      }
+    }
+    return {board, initShip,attack,sunkShips, switchShip}
   }
 
 export default player
